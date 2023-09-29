@@ -11,17 +11,13 @@ class Tracker():
     tracks = None
 
     def __init__(self) -> None:
-        max_cosine_distance = 0.4
-        nn_budget = None 
-        encoder_model_filename = '/home/koushik/github/test/v8/models_data/mars-small128.pb'
-
-        metric = nn_matching.NearestNeighborDistanceMetric("cosine", max_cosine_distance, nn_budget)
+        model_dir = '/home/koushik/github/test/v8/models_data/mars-small128.pb'
+        metric = nn_matching.NearestNeighborDistanceMetric("cosine", 0.4, None)
         self.tracker = DeepSortTracker(metric)
-        self.encoder = generate_detections.create_box_encoder(encoder_model_filename, batch_size=1)
+        self.encoder = generate_detections.create_box_encoder(model_dir, batch_size=1)
     
 
     def update(self, frame, detections):
-
         if len(detections) == 0:
             self.tracker.predict()
             self.tracker.update([])  
@@ -31,13 +27,10 @@ class Tracker():
         bboxes = np.asarray([d[:-1] for d in detections])
         bboxes[:, 2:] = bboxes[:, 2:] - bboxes[:, 0:2]
         scores = [d[-1] for d in detections]
-
         features = self.encoder(frame, bboxes)
-
         dets = []
         for bbox_id, bbox in enumerate(bboxes):
             dets.append(Detection(bbox, scores[bbox_id], features[bbox_id]))
-
         self.tracker.predict()
         self.tracker.update(dets)
         self.update_tracks() 
@@ -57,9 +50,6 @@ class Tracker():
 
 
 class Track:
-    track_id = None
-    bbox = None
-
     def __init__(self, id, bbox):
         self.track_id = id
         self.bbox = bbox
