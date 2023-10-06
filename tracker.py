@@ -1,8 +1,8 @@
 # from deep_.tracker import DeepSortTracker 
-from deep_sort.deep_sort.tracker import Tracker as DeepSortTracker
-from deep_sort.tools import generate_detections 
-from deep_sort.deep_sort.detection import Detection
-from deep_sort.deep_sort import nn_matching
+from deep_sort_update.deep_sort.tracker import Tracker as DeepSortTracker
+from deep_sort_update.tools import generate_detections 
+from deep_sort_update.deep_sort.detection import Detection
+from deep_sort_update.deep_sort import nn_matching
 import numpy as np 
 
 class Tracker():
@@ -11,7 +11,7 @@ class Tracker():
     tracks = None
 
     def __init__(self) -> None:
-        model_dir = '/home/koushik/github/test/v8/models_data/mars-small128.pb'
+        model_dir = '/home/koushik/github/track_yolo_deep/mars-small128.pb'
         metric = nn_matching.NearestNeighborDistanceMetric("cosine", 0.4, None)
         self.tracker = DeepSortTracker(metric)
         self.encoder = generate_detections.create_box_encoder(model_dir, batch_size=1)
