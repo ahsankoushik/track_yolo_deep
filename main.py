@@ -10,7 +10,7 @@ from tracker import Tracker
 
 video_out_path = os.path.join('.', 'speed_clac.mp4')
 
-cap = cv2.VideoCapture("/home/koushik/Downloads/20231002_114434.mp4")
+cap = cv2.VideoCapture("/home/koushik/Downloads/20231021_163317.mp4")
 ret, frame = cap.read()
 
 cap_out = cv2.VideoWriter(video_out_path, cv2.VideoWriter_fourcc(*'MP4V'), cap.get(cv2.CAP_PROP_FPS),
