@@ -1,10 +1,9 @@
 import math
-
+from main import y_start,y_end
 # real world distance in meter 
 real_world_distance = 60  
-xy_start = 380 
-xy_end = 430
-per_pixel_distance = real_world_distance/(xy_end-xy_start)
+
+per_pixel_distance = real_world_distance/(y_end-y_start)
 fps = 1920/63
 
 

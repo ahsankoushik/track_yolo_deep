@@ -6,16 +6,25 @@ from ultralytics import YOLO
 from meter import Meter
 from tracker import Tracker
 
+# change area of interest 
+y_start = 380 
+y_end = 430
 
-
+# Change output file name here 
 video_out_path = os.path.join('.', 'speed_clac.mp4')
 
-cap = cv2.VideoCapture("/home/koushik/Downloads/20231021_163317.mp4")
+# Change input file name here 
+cap = cv2.VideoCapture("/home/koushik/Downloads/20231021_163317.mp4") 
+
+# resize 
+size = (400,800)
+
 ret, frame = cap.read()
-
 cap_out = cv2.VideoWriter(video_out_path, cv2.VideoWriter_fourcc(*'MP4V'), cap.get(cv2.CAP_PROP_FPS),
-                          (400, 800))
+                          size)
 
+
+# change model here 
 model = YOLO("yolov8s.pt")
 
 
@@ -54,8 +63,8 @@ while ret:
 
     end = time.perf_counter()
     fps = int(1/(end-start))
-    cv2.line(frame,(0,380),(400,380),(0,255,0),1)
-    cv2.line(frame,(0,430),(400,430),(0,255,0),1)
+    cv2.line(frame,(0,y_start),(size[0],y_start),(0,255,0),1)
+    cv2.line(frame,(0,y_end),(size[0],y_end),(0,255,0),1)
     cv2.putText(frame,str(fps),(20,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),1)
         
     cv2.imshow("video",frame)
