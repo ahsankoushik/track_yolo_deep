@@ -11,7 +11,7 @@ class Tracker():
     tracks = None
 
     def __init__(self) -> None:
-        model_dir = '/home/koushik/github/track_yolo_deep/mars-small128.pb'
+        model_dir = '/home/koushik/github/track_yolo_deep/models/mars-small128.pb'
         metric = nn_matching.NearestNeighborDistanceMetric("cosine", 0.4, None)
         self.tracker = DeepSortTracker(metric)
         self.encoder = generate_detections.create_box_encoder(model_dir, batch_size=1)

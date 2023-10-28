@@ -1,10 +1,21 @@
 import math
-from main import y_start,y_end
-# real world distance in meter 
-real_world_distance = 60  
 
-per_pixel_distance = real_world_distance/(y_end-y_start)
-fps = 1920/63
+
+
+per_pixel_distance = 0
+
+y_start = 0 
+y_end = 0 
+fps = 0
+real_world_distance=0
+def metrics(y1:int,y2:int,f:int,real_distance:int):
+    '''Initialize all the values to metrics'''
+    y_start = y1
+    y_end = y2
+    real_world_distance = real_distance
+    fps = f
+    per_pixel_distance = real_world_distance/(y_end-y_start)
+
 
 
 class Meter:

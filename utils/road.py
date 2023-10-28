@@ -2,7 +2,7 @@ import cv2
 import os
 import time 
 
-cap = cv2.VideoCapture("/home/koushik/Downloads/20231002_114434.mp4")
+cap = cv2.VideoCapture("/home/koushik/Pictures/Screenshot_20231028_195627.png")
 ret, frame = cap.read()
 shape = frame.shape
 print(shape)

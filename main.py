@@ -3,15 +3,21 @@ import random
 import time
 import cv2
 from ultralytics import YOLO
-from meter import Meter
-from tracker import Tracker
+from utils.meter import Meter,metrics
+from utils.tracker import Tracker
 
+
+# real world distance in meter 
+real_world_distance = 60  
+fps =30 
 # change area of interest 
 y_start = 380 
 y_end = 430
 
+metrics(y_start,y_end,fps,real_world_distance)
+
 # Change output file name here 
-video_out_path = os.path.join('.', 'speed_clac.mp4')
+video_out_path = os.path.join('.', 'outputs/speed_clac.mp4')
 
 # Change input file name here 
 cap = cv2.VideoCapture("/home/koushik/Downloads/20231021_163317.mp4") 
