@@ -3,18 +3,18 @@ import random
 import time
 import cv2
 from ultralytics import YOLO
-from utils.meter import Meter,metrics
+from utils.meter import Meter
 from utils.tracker import Tracker
 
 
 # real world distance in meter 
-real_world_distance = 60  
+real_world_distance = 22
 fps =30 
 # change area of interest 
-y_start = 380 
-y_end = 430
+y_start = 485 
+y_end = 595
 
-metrics(y_start,y_end,fps,real_world_distance)
+Meter.metrics(y_start,y_end,fps,real_world_distance)
 
 # Change output file name here 
 video_out_path = os.path.join('.', 'outputs/speed_clac.mp4')
@@ -53,7 +53,8 @@ while ret:
             x1, y1, x2, y2  = map(int,r[:4])
             score = r[4]
             if score > conf:
-                detections.append([x1, y1, x2, y2, score])
+                if y1> y_start-30 and y2<y_end+30:
+                    detections.append([x1, y1, x2, y2, score])
 
         tracker.update(frame, detections)
 
@@ -85,3 +86,6 @@ print("Total time for detection and tracking:",round(time.time()-start_time,2))
 cap.release()
 cap_out.release()
 cv2.destroyAllWindows()
+
+
+Meter.export_to_txt()
