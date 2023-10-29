@@ -17,7 +17,7 @@ y_end = 595
 Meter.metrics(y_start,y_end,fps,real_world_distance)
 
 # Change output file name here 
-video_out_path = os.path.join('.', 'outputs/speed_clac.mp4')
+video_out_path = os.path.join('.', 'outputs/id.mp4')
 
 # Change input file name here 
 cap = cv2.VideoCapture("/home/koushik/Downloads/20231021_163317.mp4") 
@@ -63,10 +63,10 @@ while ret:
             bbox = track.bbox
             x1, y1, x2, y2 = map(int,bbox)
             track_id = track.track_id
-            distance = meter.enter(track_id,x1,y1,x2,y2)
+            spedd = meter.enter(track_id,x1,y1,x2,y2)
             
             cv2.rectangle(frame, (x1, y1), (x2, y2), (colors[track_id % len(colors)]), 3)
-            cv2.putText(frame,f"{distance}",(x1,y1-2),cv2.FONT_HERSHEY_COMPLEX,0.5,(255,0,0),1)
+            cv2.putText(frame,f"{track_id}",(x1,y1-2),cv2.FONT_HERSHEY_COMPLEX,0.5,(255,0,0),1)
 
     end = time.perf_counter()
     fps = int(1/(end-start))

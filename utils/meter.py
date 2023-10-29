@@ -1,5 +1,5 @@
 import math
-
+import json
 
 
 class Meter:
@@ -45,10 +45,31 @@ class Meter:
         else:
             cls.his[id].append(speed)
 
-    @classmethod 
-    def export_to_txt(cls):
+    @classmethod
+    def generalize(cls)->dict:
+        '''Generalize or find the mean of speeds for all the cars'''
         avg = {}
         for i,j in cls.his.items():
             avg[i] = round(sum(j)/len(j),2)
-        print(avg)
+        return avg
 
+    @classmethod 
+    def export_to_txt(cls)->None:
+        '''Dumps generalized speed data to txt'''
+        data = cls.generalize()
+        with open("outputs/txt/output.txt","w") as f:
+            f.write(str(data))
+
+    @classmethod
+    def export_to_json(cls)->None:
+        '''Dumps generalized speed data to txt'''
+        data = cls.generalize()
+        json_data = json.dumps(data,indent=4)
+
+        with open("outputs/json/output.json",'w') as f:
+            f.write(json_data)
+
+
+        
+
+    
