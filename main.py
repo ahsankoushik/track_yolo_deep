@@ -5,6 +5,13 @@ import cv2
 from ultralytics import YOLO
 from utils.meter import Meter
 from utils.tracker import Tracker
+import tensorflow as tf
+
+# these 3 lines are cructial because it stops the model from growing out of gpu ram limit
+
+gpu_devices = tf.config.experimental.list_physical_devices("GPU")
+for device in gpu_devices:
+    tf.config.experimental.set_memory_growth(device, True)
 
 
 # real world distance in meter 
@@ -89,3 +96,4 @@ cv2.destroyAllWindows()
 
 
 Meter.export_to_txt()
+Meter.export_to_json()
